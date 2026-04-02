@@ -1,0 +1,44 @@
+El Problema:
+
+Una tienda de videojuegos quiere predecir si un juego será "popular" (ventas altas)
+o "no popular" basándose en características numéricas conocidas antes del lanzamiento:
+puntuación de metacritic, horas promedio jugadas, precio, número de reseñas y edad
+promedio de los jugadores.
+
+Tu Misión:
+
+Escribe una función llamada predecir_popularidad_juego(X, y, test_size, random_state) que:
+
+- Reciba:
+    - X (np.ndarray): matriz de características de forma (n_samples, n_features).
+    - y (np.ndarray): vector de etiquetas binarias (1 = popular, 0 = no popular).
+    - test_size (float): fracción para el conjunto de prueba (entre 0.1 y 0.5).
+    - random_state (int): semilla para reproducibilidad.
+- Divida los datos en entrenamiento y prueba usando train_test_split con los parámetros
+  test_size y random_state recibidos.
+- Escale las características con StandardScaler (ajustar SOLO sobre entrenamiento,
+  transformar ambos conjuntos).
+- Entrene un LogisticRegression con max_iter=1000 y random_state=random_state.
+- Evalúe el modelo sobre el conjunto de prueba.
+- Devuelva un diccionario con las claves:
+    - 'accuracy'  (float)
+    - 'precision' (float)
+    - 'recall'    (float)
+    - 'f1_score'  (float)
+  calculadas con las funciones correspondientes de sklearn.metrics
+  (usar zero_division=0 en precision, recall y f1).
+
+Restricciones:
+- Librerías permitidas: numpy, sklearn.
+- No usar pandas.
+
+Ejemplo:
+
+    import numpy as np
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(n_samples=200, n_features=5, random_state=42)
+    resultado = predecir_popularidad_juego(X, y, test_size=0.2, random_state=42)
+    print(resultado)
+    # {'accuracy': 0.9, 'precision': 0.88, 'recall': 0.92, 'f1_score': 0.90}
+    # (valores aproximados, dependen de los datos)

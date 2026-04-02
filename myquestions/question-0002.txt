@@ -1,0 +1,48 @@
+El Problema:
+
+En una plataforma de videojuegos competitivos se almacenan los resultados de partidas
+por mapa. El DataFrame puede contener filas con valores nulos que hay que descartar,
+y es necesario calcular un resumen estadístico agrupado por mapa para analizar en
+cuáles mapas el equipo local tiene más ventaja.
+
+Tu Misión:
+
+Escribe una función llamada resumir_partidas_por_mapa(df) que realice lo siguiente:
+
+- Reciba un DataFrame df con las columnas: 'mapa' (str), 'equipo_ganador' (str, 'A' o 'B'),
+  'equipo_local' (str, 'A' o 'B'), 'puntaje_local' (int/float), 'puntaje_visitante' (int/float).
+- Elimine todas las filas con al menos un valor NaN.
+- Cree una columna booleana auxiliar 'victoria_local' = (equipo_ganador == equipo_local).
+- Agrupe por 'mapa' y calcule:
+    - 'total_partidas': número de partidas jugadas en ese mapa.
+    - 'promedio_puntaje_local': media de puntaje_local.
+    - 'promedio_puntaje_visitante': media de puntaje_visitante.
+    - 'tasa_victoria_local': proporción de victorias locales (media de victoria_local).
+- Devuelva un DataFrame con las columnas
+  ['mapa', 'total_partidas', 'promedio_puntaje_local',
+   'promedio_puntaje_visitante', 'tasa_victoria_local'],
+  ordenado de mayor a menor 'tasa_victoria_local', con índice reiniciado (reset_index drop=True).
+
+Restricciones:
+- Usar solo pandas y numpy.
+- No usar loops explícitos.
+
+Ejemplo:
+
+    import pandas as pd
+    import numpy as np
+
+    df = pd.DataFrame({
+        'mapa':               ['Dust2', 'Mirage', 'Dust2', 'Inferno', 'Mirage', 'Dust2'],
+        'equipo_ganador':     ['A',     'B',      'A',     'A',       'A',      'B'],
+        'equipo_local':       ['A',     'A',      'B',     'A',       'A',      'A'],
+        'puntaje_local':      [16,      14,       10,      16,        16,       13],
+        'puntaje_visitante':  [10,      16,       16,      12,        14,       16]
+    })
+
+    resultado = resumir_partidas_por_mapa(df)
+    print(resultado)
+    #        mapa  total_partidas  promedio_puntaje_local  promedio_puntaje_visitante  tasa_victoria_local
+    # 0   Inferno               1                    16.0                        12.0                  1.0
+    # 1    Mirage               2                    15.0                        15.0                  0.5
+    # 2     Dust2               3                    13.0                        14.0                  0.333...
