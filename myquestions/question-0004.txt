@@ -1,0 +1,49 @@
+El Problema:
+
+Un laboratorio de IA para videojuegos quiere clasificar el resultado de una partida
+(victoria, derrota o empate) usando una red neuronal multicapa (MLP). Las características
+son estadísticas colectivas del equipo: daño total, precisión promedio, objetivos capturados,
+tiempo de control de mapa y número de bajas.
+
+Tu Misión:
+
+Escribe una función llamada clasificar_resultado_con_mlp(X, y, capas_ocultas, test_size, random_state) que:
+
+- Reciba:
+    - X (np.ndarray): matriz de características de forma (n_samples, n_features).
+    - y (np.ndarray): vector de etiquetas enteras (0, 1, 2, ... para cada resultado posible).
+    - capas_ocultas (tuple): número de neuronas por capa oculta, por ejemplo (64, 32).
+    - test_size (float): fracción para el conjunto de prueba (entre 0.1 y 0.5).
+    - random_state (int): semilla para reproducibilidad.
+- Divida los datos en entrenamiento y prueba con train_test_split usando test_size y random_state.
+- Escale las características con StandardScaler (ajustar SOLO sobre entrenamiento,
+  transformar ambos conjuntos).
+- Entrene un MLPClassifier con:
+    - hidden_layer_sizes=capas_ocultas
+    - max_iter=500
+    - random_state=random_state
+- Evalúe el modelo sobre el conjunto de prueba.
+- Devuelva un diccionario con las claves:
+    - 'accuracy' (float)
+    - 'f1_score' (float), calculado con average='weighted' y zero_division=0
+
+Restricciones:
+- Librerías permitidas: numpy, sklearn.
+- No usar pandas.
+- El modelo debe ser MLPClassifier de sklearn.neural_network.
+
+Ejemplo:
+
+    import numpy as np
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(n_samples=400, n_features=5,
+                               n_classes=3, n_informative=4,
+                               n_clusters_per_class=1, random_state=99)
+    resultado = clasificar_resultado_con_mlp(X, y,
+                                             capas_ocultas=(64, 32),
+                                             test_size=0.2,
+                                             random_state=99)
+    print(resultado)
+    # {'accuracy': 0.87, 'f1_score': 0.87}
+    # (valores aproximados, dependen de los datos y la arquitectura)

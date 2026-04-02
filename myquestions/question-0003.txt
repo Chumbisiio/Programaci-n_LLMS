@@ -1,0 +1,46 @@
+El Problema:
+
+Un estudio de videojuegos quiere predecir si un jugador ganará su próxima partida
+usando estadísticas de partidas anteriores: KDA promedio, tasa de headshots, horas
+jugadas en la semana, nivel de cuenta y número de partidas ganadas consecutivas.
+El equipo decide probar el clasificador probabilístico Naive Bayes Gaussiano, que es
+rápido y funciona bien con características continuas.
+
+Tu Misión:
+
+Escribe una función llamada predecir_victoria_naive_bayes(X, y, test_size, random_state) que:
+
+- Reciba:
+    - X (np.ndarray): matriz de características de forma (n_samples, n_features).
+    - y (np.ndarray): vector de etiquetas binarias (1 = victoria, 0 = derrota).
+    - test_size (float): fracción para el conjunto de prueba (entre 0.1 y 0.5).
+    - random_state (int): semilla para reproducibilidad en train_test_split.
+- Divida los datos en entrenamiento y prueba con train_test_split usando los
+  parámetros test_size y random_state recibidos.
+- Escale las características con MinMaxScaler (ajustar SOLO sobre entrenamiento,
+  transformar ambos conjuntos).
+- Entrene un GaussianNB (sin parámetros adicionales).
+- Evalúe el modelo sobre el conjunto de prueba.
+- Devuelva un diccionario con las claves:
+    - 'accuracy'  (float)
+    - 'precision' (float)
+    - 'recall'    (float)
+    - 'f1_score'  (float)
+  calculadas con las funciones de sklearn.metrics
+  (usar zero_division=0 en precision, recall y f1).
+
+Restricciones:
+- Librerías permitidas: numpy, sklearn.
+- No usar pandas.
+- El modelo debe ser GaussianNB, no otro clasificador.
+
+Ejemplo:
+
+    import numpy as np
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(n_samples=300, n_features=5, random_state=7)
+    resultado = predecir_victoria_naive_bayes(X, y, test_size=0.25, random_state=7)
+    print(resultado)
+    # {'accuracy': 0.85, 'precision': 0.84, 'recall': 0.87, 'f1_score': 0.85}
+    # (valores aproximados, dependen de los datos)
